@@ -1,0 +1,96 @@
+#header{
+    background-image: linear-gradient(180deg, blue, black);
+    margin-left: 0;
+    margin-right: 0;
+}
+
+#black-white-transition{
+    background-image: linear-gradient(black, white);
+    height: 200px;
+}
+
+#white-black-transition{
+    background-image: linear-gradient(white, black);
+    height: 200px;
+}
+
+#profile-pic{
+    border-width: 5px;
+    border-style:solid;
+    border-color: black;
+}
+#attribute-type th{
+    color:white;
+    font-weight: bold;
+    padding: 5px;
+}
+#attribute-value td{
+    color: white;
+    padding: 5px;
+}
+#h1-white{
+    color: white;
+    padding: 15px;
+}
+
+#personal-statement #personal-statement-header{
+    color: black;
+    padding: 15px;
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+
+p{
+    margin-left: 100px;
+    margin-right: 100px;
+    margin-top: 15px;
+    color: black;
+    font-size: 19px;
+    line-height: 50px;
+}
+#video{
+    display:block;
+    margin-left: auto;
+    margin-right: auto;
+}
+div{
+    padding-left: 15px;
+    padding-right: 15px;
+}
+h2{
+    margin-left: 100px;
+    color: black;
+}
+
+#career{
+    color: white;
+    margin-left: 70px;
+    font-size: 19px;
+    padding: 50px;
+}
+#career td{
+    padding:50px
+}
+#career th{
+    padding:50px
+}
+#personal-statement{
+    background-color: white;
+}
+#video{
+    background-color: black;
+}
+#athletics{
+    background-color: black;
+    display:block;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 100px;
+    padding-bottom: 100px;
+}
+#athletics-header{
+    color: white;
+    margin: 50px;
+    text-align: center;
+}
