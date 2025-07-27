@@ -63,16 +63,16 @@ h2{
     color: black;
 }
 
-#career{
+#athletics-text{
     color: white;
     margin-left: 70px;
     font-size: 19px;
     padding: 50px;
 }
-#career td{
+#athletics-text td{
     padding:50px
 }
-#career th{
+#athletics-text th{
     padding:50px
 }
 #personal-statement{
@@ -93,4 +93,32 @@ h2{
     color: white;
     margin: 50px;
     text-align: center;
+}
+
+#academics{
+    background-color: white;
+    display:block;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 100px;
+    padding-bottom: 100px;
+}
+
+#academics-header{
+    color: black;
+    margin: 50px;
+    text-align: center;
+}
+
+#academics-text{
+    color: black;
+    margin-left: 70px;
+    font-size: 19px;
+    padding: 50px;
+}
+#academics-text td{
+    padding:50px
+}
+#academics-text th{
+    padding:50px
 }
