@@ -2,6 +2,7 @@
     background-image: linear-gradient(180deg, blue, black);
     margin-left: 0;
     margin-right: 0;
+    height: 200px;
 }
 
 #black-white-transition{
@@ -77,9 +78,11 @@ h2{
 }
 #personal-statement{
     background-color: white;
+    height: 480px;
 }
 #video{
     background-color: black;
+    height: 480px;
 }
 #athletics{
     background-color: black;
@@ -88,6 +91,7 @@ h2{
     margin-right: auto;
     padding-top: 100px;
     padding-bottom: 100px;
+    height: 480px;
 }
 #athletics-header{
     color: white;
@@ -102,6 +106,7 @@ h2{
     margin-right: auto;
     padding-top: 100px;
     padding-bottom: 100px;
+    height: 680px;
 }
 
 #academics-header{

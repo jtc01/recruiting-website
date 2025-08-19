@@ -1,10 +1,30 @@
 let scrollTimeout;
 const scrollDebounceDelay = 30; // ms after scroll stops
 let isAutoScrolling = false;
+let lastScrollPosition = window.pageYOffset;
+let lastScrollDirection = null; // 'up' or 'down'
 
 window.addEventListener('scroll', () => {
+  const currentScrollPosition = window.pageYOffset;
+  
+  // If we're auto-scrolling and user scrolls, stop the auto-scroll
+  if (isAutoScrolling) {
+    isAutoScrolling = false;
     clearTimeout(scrollTimeout);
-    scrollTimeout = setTimeout(snapToNearestSection, scrollDebounceDelay);
+    return;
+  }
+  
+  // Determine scroll direction
+  if (currentScrollPosition > lastScrollPosition) {
+    lastScrollDirection = 'down';
+  } else if (currentScrollPosition < lastScrollPosition) {
+    lastScrollDirection = 'up';
+  }
+  
+  lastScrollPosition = currentScrollPosition;
+  
+  clearTimeout(scrollTimeout);
+  scrollTimeout = setTimeout(snapToNearestSection, scrollDebounceDelay);
 });
 
 function snapToNearestSection() {
@@ -20,46 +40,63 @@ function snapToNearestSection() {
     const rect = section.getBoundingClientRect();
     const sectionTop = scrollTop + rect.top;
 
-    const sectionCenter = sectionTop + (rect.height / 2);
-    const viewportCenter = scrollTop + (viewportHeight / 2);
-    const distanceToCenter = Math.abs(sectionCenter - viewportCenter);
+    const distanceToTop = Math.abs(sectionTop - scrollTop);
 
-    if (distanceToCenter < smallestDistance) {
-        smallestDistance = distanceToCenter;
+    // Check if this section is in the direction user was scrolling
+    const sectionIsBelow = sectionTop > scrollTop;
+    const sectionIsAbove = sectionTop < scrollTop;
+    
+    let shouldConsiderSection = false;
+    
+    if (lastScrollDirection === 'down' && sectionIsBelow) {
+        shouldConsiderSection = true;
+    } else if (lastScrollDirection === 'up' && sectionIsAbove) {
+        shouldConsiderSection = true;
+    } else if (lastScrollDirection === null) {
+        // No direction detected, consider all sections (fallback)
+        shouldConsiderSection = true;
+    }
+    
+    if (shouldConsiderSection && distanceToTop < smallestDistance) {
+        smallestDistance = distanceToTop;
         closestSection = section;
     }
     });
 
     if (closestSection) {
-    smoothScrollToSection(closestSection);
+        smoothScrollToSection(closestSection);
     }
 }
 
 function smoothScrollToSection(section) {
-    if (isAutoScrolling) return;  // Exit if already auto-scrolling
-  
-    isAutoScrolling = true;  // Set flag before starting
-    const targetPosition = section.offsetTop;
-    const startPosition = window.pageYOffset;
-    const distance = targetPosition - startPosition;
-    const duration = 200; // ms
+    if (isAutoScrolling) return;
 
-    let startTime = null;
+    isAutoScrolling = true;
 
-    function animation(currentTime) {
+        const targetPosition = section.offsetTop;
+        const startPosition = window.pageYOffset;
+        const distance = targetPosition - startPosition;
+        const duration = 800;
+
+        let startTime = null;
+
+        function animation(currentTime) {
+        // Check if auto-scroll was interrupted
+        if (!isAutoScrolling) {
+            return; // Exit animation if flag was cleared
+        }
+        
         if (startTime === null) startTime = currentTime;
         const timeElapsed = currentTime - startTime;
         const progress = Math.min(timeElapsed / duration, 1);
-
-        // Easing function (ease-out)
+        
         const easeOut = 1 - Math.pow(1 - progress, 3);
-
+        
         window.scrollTo(0, startPosition + (distance * easeOut));
-
+        
         if (timeElapsed < duration) {
             requestAnimationFrame(animation);
-        }
-        else{
+        } else {
             isAutoScrolling = false;
         }
     }
